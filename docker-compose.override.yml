@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+
+  php-fpm-mailcow:
+    build: ./data/Dockerfiles/phpfpm
+  nginx-mailcow:
+    build: ./data/Dockerfiles/nginx
+    depends_on:
+      - sogo-mailcow
+      - rspamd-mailcow
+  acme-mailcow:
+    build: ./data/Dockerfiles/acme
+ 
