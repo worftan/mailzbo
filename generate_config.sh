@@ -409,3 +409,7 @@ else
   echo '?>' >> data/web/inc/app_info.inc.php
   echo -e "\e[33mCannot determine current git repository version...\e[0m"
 fi
+
+if [[ ! -d "data/assets/ssl/dhparams.pem" ]]; then
+    openssl dhparam -out data/assets/ssl/dhparams.pem 4096
+fi

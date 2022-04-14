@@ -16,6 +16,7 @@ set -e
             
              ssl_certificate '${sslDir}'/cert.pem;
             ssl_certificate_key '${sslDir}'/key.pem;
+        
             
             server_name '${server_name}';
             include /etc/nginx/conf.d/includes/'${3}'.conf;

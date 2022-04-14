@@ -1,6 +1,8 @@
 proxy_cache_path /tmp levels=1:2 keys_zone=sogo:10m inactive=24h  max_size=1g;
 server_names_hash_bucket_size 64;
 
+ssl_dhparam        /etc/ssl/mail/dhparams.pem;
+
 map $http_x_forwarded_proto $client_req_scheme {
      default $scheme;
      https https;
