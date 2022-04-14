@@ -79,12 +79,8 @@ done
 DEFAULT_PRODJECT="/data/mailzbo/"
 
 while [ -z "${MAIL_PRODJECT}" ]; do
-  if [ -z "${MAIL_PRODJECT}" ]; then
-    read -p "prodject dir: " -e MAIL_PRODJECT
-  else
      read -p "prodject dir[${DEFAULT_PRODJECT}]: " -e MAIL_PRODJECT
-      [ -z "${MAIL_PRODJECT}" ] && MAIL_PRODJECT=${DEFAULT_PRODJECT}
-  fi
+    [ -z "${MAIL_PRODJECT}" ] && MAIL_PRODJECT=${DEFAULT_PRODJECT}
 done
 
 MEM_TOTAL=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
