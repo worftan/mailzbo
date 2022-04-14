@@ -10,6 +10,7 @@ RUN apk upgrade --no-cache \
   bind-tools \
   jq \
   mariadb-client \
+  mariadb-dev \
   redis \
   tini \
   tzdata \
