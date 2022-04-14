@@ -1,0 +1,31 @@
+proxy_cache_path /tmp levels=1:2 keys_zone=sogo:10m inactive=24h  max_size=1g;
+server_names_hash_bucket_size 64;
+
+map $http_x_forwarded_proto $client_req_scheme {
+     default $scheme;
+     https https;
+}
+ upstream mail_backend {
+  server  unix:/dev/shm/php/www-data/php8-mail.socket;
+  server  unix:/dev/shm/php/www-data/php8.socket;
+}
+ upstream fastcgi_backend {
+  server  unix:/dev/shm/php/docker/php71-data1.socket;
+   server  unix:/dev/shm/php/docker/php71-data2.socket;
+    server  unix:/dev/shm/php/docker/php71-www-data.socket;
+     server  unix:/dev/shm/php/docker/www.socket;
+}
+
+
+upstream php74_backend {
+  server  unix:/dev/shm/php/php74/php74-fpm.socket;
+   keepalive 32; 
+   keepalive_timeout 30s;
+}
+server {
+    listen       80  default_server;
+    server_name  _;
+    return       444;
+}
+
+
