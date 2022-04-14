@@ -223,7 +223,7 @@ services:
         - ${MAIL_PRODJECT:-./}data/assets/ssl/:/etc/ssl/mail/:ro
         - ${MAIL_PRODJECT:-./}data/conf/nginx/:/etc/nginx/conf.d/
         - ${MAIL_PRODJECT:-./}data/conf/rspamd/meta_exporter:/meta_exporter:ro
-        - ${MAIL_PRODJECT:-./}data/conf/nginx/hooks:/hooks
+        - ${MAIL_PRODJECT:-./}data/conf/hooks:/hooks
         - sogo-web-vol-1:/usr/lib/GNUstep/SOGo/
         - php-share:/dev/shm/php:ro
       ports:
