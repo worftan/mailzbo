@@ -76,11 +76,14 @@ while [ -z "${MAILCOW_TZ}" ]; do
   fi
 done
 
+DEFAULT_PRODJECT="/data/mailzbo/"
+
 while [ -z "${MAIL_PRODJECT}" ]; do
   if [ -z "${MAIL_PRODJECT}" ]; then
-    read -p "Timezone: " -e MAIL_PRODJECT
+    read -p "prodject dir: " -e MAIL_PRODJECT
   else
-     MAIL_PRODJECT="/data/mailzbo/"
+     read -p "prodject dir[${DEFAULT_PRODJECT}]: " -e MAIL_PRODJECT
+      [ -z "${MAIL_PRODJECT}" ] && MAIL_PRODJECT=${DEFAULT_PRODJECT}
   fi
 done
 
