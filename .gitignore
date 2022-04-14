@@ -2,7 +2,6 @@
 !data/conf/nginx/meta_exporter.conf
 !data/conf/nginx/site.conf
 .DS_Store
-!/**/.gitkeep
 *.iml
 .idea
 .vscode/*
@@ -40,7 +39,7 @@ data/conf/postfix/sql
 data/conf/rspamd/custom/*
 data/conf/rspamd/local.d/*
 data/conf/rspamd/override.d/*
-data/conf/sogo/custom-theme.js
+!data/conf/sogo/custom-theme.js
 data/conf/sogo/plist_ldap
 data/conf/sogo/sieve.creds
 data/conf/sogo/sogo-full.svg
@@ -65,3 +64,4 @@ rebuild-images.sh
 refresh_images.sh
 update_diffs/
 create_cold_standby.sh
+!/**/.gitkeep

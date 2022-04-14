@@ -46,7 +46,7 @@ for cert_dir in /etc/ssl/mail/*/ ; do
   case "${domains}" in
     "") continue;;
     "${MAILCOW_HOSTNAME}"*) continue;;
-    "${FRONTEND_SERVER_NAME}"*) continue;;
+    "${BACKEND_SERVER_NAME}"*) continue;;
   esac
    { echo -n '
 server {

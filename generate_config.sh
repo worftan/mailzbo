@@ -53,7 +53,7 @@ while [ -z "${MAILCOW_HOSTNAME}" ]; do
 done
 
 while [ -z "${BACKEND_SERVER_NAME}" ]; do
-  read -p "Mail server hostname (FQDN) - this is not your mail domain, but your mail servers hostname: " -e BACKEND_SERVER_NAME
+  read -p "backend hostname: " -e BACKEND_SERVER_NAME
   DOTS=${BACKEND_SERVER_NAME//[^.]};
   if [ ${#DOTS} -lt 2 ] && [ ! -z ${BACKEND_SERVER_NAME} ]; then
     echo "${BACKEND_SERVER_NAME} is not a FQDN"
@@ -73,6 +73,14 @@ while [ -z "${MAILCOW_TZ}" ]; do
   else
     read -p "Timezone [${DETECTED_TZ}]: " -e MAILCOW_TZ
     [ -z "${MAILCOW_TZ}" ] && MAILCOW_TZ=${DETECTED_TZ}
+  fi
+done
+
+while [ -z "${MAIL_PRODJECT}" ]; do
+  if [ -z "${MAIL_PRODJECT}" ]; then
+    read -p "Timezone: " -e MAIL_PRODJECT
+  else
+     MAIL_PRODJECT="/data/mailzbo/"
   fi
 done
 
@@ -158,10 +166,10 @@ DBROOT=$(LC_ALL=C </dev/urandom tr -dc A-Za-z0-9 | head -c 28)
 # For IPv6 see https://mailcow.github.io/mailcow-dockerized-docs/post_installation/firststeps-ip_bindings/
 
 HTTP_PORT=80
-HTTP_BIND=
+HTTP_BIND=127.0.0.1
 
 HTTPS_PORT=443
-HTTPS_BIND=
+HTTPS_BIND=127.0.0.1
 
 # ------------------------------
 # Other bindings
@@ -358,6 +366,22 @@ ACME_CONTACT=
 # After setting WEBAUTHN_ONLY_TRUSTED_VENDORS=y only devices from trusted manufacturers are allowed
 # root certificates can be placed for validation under mailcow-dockerized/data/web/inc/lib/WebAuthn/rootCertificates
 WEBAUTHN_ONLY_TRUSTED_VENDORS=n
+
+#custom
+
+PROJECT_SOURCE=/data/websites
+MAIL_PRODJECT=${MAIL_PRODJECT}
+REDIS_IMAGE=redis:6.2.6-alpine3.15
+PHP_IMAGE=wolf/phpfpm:8.1.3
+CONTAINER_NAME=
+MYSQL_DRIVE=mysql
+POSTFIX_MYSQL_SOCKET=mysql-socket-vol-1
+EMAIL_USER="noreply@zbocloud.com"
+EMAIL_PASSWD="52,nISeworYPERfUSkaTENoTeXAsTENmAgA,;"
+EMAIL_HOST="m.zbocloud.com"
+EMAIL_ADDRESS="noreply@zbocloud.com"
+EMAIL_PORT="465"
+SMTP_TLS=on
 
 EOF
 
