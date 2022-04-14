@@ -28,6 +28,8 @@ services:
     mysql-mailcow:
       container_name: ${ECONTAINER_NAME:-}mysql
       image: mysql:8.0.28
+      cap_add:
+        - SYS_NICE  # CAP_SYS_NICE
       depends_on:
         - unbound-mailcow
       stop_grace_period: 45s
@@ -223,7 +225,7 @@ services:
         - ${MAIL_PRODJECT:-./}data/assets/ssl/:/etc/ssl/mail/:ro
         - ${MAIL_PRODJECT:-./}data/conf/nginx/:/etc/nginx/conf.d/
         - ${MAIL_PRODJECT:-./}data/conf/rspamd/meta_exporter:/meta_exporter:ro
-        - ${MAIL_PRODJECT:-./}data/conf/hooks:/hooks
+        - ${MAIL_PRODJECT:-./}data/hooks/nginx:/hooks
         - sogo-web-vol-1:/usr/lib/GNUstep/SOGo/
         - php-share:/dev/shm/php:ro
       ports:
