@@ -49,7 +49,7 @@ function mailq($_action, $_data = null) {
     $mailq_lines = docker('post', 'postfix-mailcow', 'exec', array('cmd' => 'mailq', 'task' => 'list'));
     $lines = 0;
     // Hard limit to 10000 items
-    foreach (preg_split("/((\r?\n)|(\r\n?))/", $mailq_lines) as $mailq_item) if ($lines++ < 10000) {
+    foreach (preg_split("/((\r?\n)|(\r\n?))/", (string)$mailq_lines) as $mailq_item) if ($lines++ < 10000) {
       if (empty($mailq_item) || $mailq_item == '1') {
         continue;
       }

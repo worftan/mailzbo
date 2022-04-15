@@ -270,12 +270,17 @@ function policy($_action, $_scope, $_data = null) {
     case 'get':
       switch ($_scope) {
         case 'domain':
+          $rows  = [
+            'whitelist' => [],
+            'blacklist' => []
+          ];
+
           if (!is_valid_domain_name($_data)) {
-            return false;
+            return $rows;
           }
           else {
             if (!hasDomainAccess($_SESSION['mailcow_cc_username'], $_SESSION['mailcow_cc_role'], $_data)) {
-              return false;
+              return $rows;
             }
             $_data = idn_to_ascii(strtolower(trim($_data)), 0, INTL_IDNA_VARIANT_UTS46);
           }
