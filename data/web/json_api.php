@@ -5,8 +5,9 @@
 
 header('Content-Type: application/json');
 require_once $_SERVER['DOCUMENT_ROOT'] . '/inc/prerequisites.inc.php';
-error_reporting(0);
-
+error_reporting(E_ALL);
+ini_set('display_errors',1);
+$data = [];
 function api_log($_data) {
   global $redis;
   $data_var = array();
@@ -53,7 +54,7 @@ if (isset($_GET['query'])) {
   $extra =      (isset($query[3])) ? $query[3] : null;
 
   // accept json in request body
-  if(strpos($_SERVER['HTTP_CONTENT_TYPE'], 'application/json') !== false) {
+  if(isset($_SERVER['HTTP_CONTENT_TYPE']) && strpos($_SERVER['HTTP_CONTENT_TYPE'], 'application/json') !== false) {
     $request = file_get_contents('php://input');
     $requestDecoded = json_decode($request, true);
 
@@ -1815,8 +1816,8 @@ if (isset($_GET['query'])) {
       exit();
   }
 }
-if ($_SESSION['mailcow_cc_api'] === true) {
-  if (isset($_SESSION['mailcow_cc_api']) && $_SESSION['mailcow_cc_api'] === true) {
+
+if (isset($_SESSION['mailcow_cc_api']) && $_SESSION['mailcow_cc_api'] === true) {
     unset($_SESSION['return']);
-  }
 }
+

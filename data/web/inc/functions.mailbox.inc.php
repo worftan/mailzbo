@@ -3488,6 +3488,7 @@ function mailbox($_action, $_type, $_data = null, $_extra = null) {
           if (preg_match('/y|yes/i', getenv('MASTER'))) {
             $stmt = $pdo->prepare("SELECT
               `domain`.`backupmx`,
+              `domain`.`relayhost`,
               `mailbox`.`username`,
               `mailbox`.`name`,
               `mailbox`.`active`,
@@ -3506,6 +3507,7 @@ function mailbox($_action, $_type, $_data = null, $_extra = null) {
           else {
             $stmt = $pdo->prepare("SELECT
               `domain`.`backupmx`,
+              `domain`.`relayhost`,
               `mailbox`.`username`,
               `mailbox`.`name`,
               `mailbox`.`active`,
@@ -3525,7 +3527,6 @@ function mailbox($_action, $_type, $_data = null, $_extra = null) {
             ':mailbox' => $_data,
           ));
           $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
           $mailboxdata['username'] = $row['username'];
           $mailboxdata['active'] = $row['active'];
           $mailboxdata['active_int'] = $row['active'];
@@ -3555,7 +3556,7 @@ function mailbox($_action, $_type, $_data = null, $_extra = null) {
           // Determine last logins
           $stmt = $pdo->prepare("SELECT MAX(`datetime`) AS `datetime`, `service` FROM `sasl_log`
             WHERE `username` = :mailbox
-                GROUP BY `service` DESC");
+                GROUP BY `service`");
           $stmt->execute(array(':mailbox' => $_data));
           $SaslLogsData  = $stmt->fetchAll(PDO::FETCH_ASSOC);
           foreach ($SaslLogsData as $SaslLogs) {

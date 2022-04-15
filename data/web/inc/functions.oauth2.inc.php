@@ -218,6 +218,7 @@ function oauth2($_action, $_type, $_data = null) {
     case 'get':
       switch ($_type) {
         case 'clients':
+          $oauth_clients = [];
           $stmt = $pdo->query("SELECT `id` FROM `oauth_clients`");
           $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
           while ($row = array_shift($rows)) {
