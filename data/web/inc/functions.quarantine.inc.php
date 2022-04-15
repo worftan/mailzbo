@@ -745,6 +745,7 @@ function quarantine($_action, $_data = null) {
       return true;
     break;
     case 'get':
+      $q_meta = [];
       if ($_SESSION['mailcow_cc_role'] == "user") {
         $stmt = $pdo->prepare('SELECT `id`, `qid`, `subject`, LOCATE("VIRUS_FOUND", `symbols`) AS `virus_flag`, `score`, `rcpt`, `sender`, `action`, UNIX_TIMESTAMP(`created`) AS `created`, `notified` FROM `quarantine` WHERE `rcpt` = :mbox');
         $stmt->execute(array(':mbox' => $_SESSION['mailcow_cc_username']));
