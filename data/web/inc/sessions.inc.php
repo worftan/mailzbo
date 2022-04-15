@@ -41,6 +41,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 
   session_destroy();
 }
 $_SESSION['LAST_ACTIVITY'] = time();
+$_SESSION['mailcow_cc_api_access'] = '';
 
 // API
 if (!empty($_SERVER['HTTP_X_API_KEY'])) {

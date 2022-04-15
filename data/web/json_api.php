@@ -5,8 +5,14 @@
 
 header('Content-Type: application/json');
 require_once $_SERVER['DOCUMENT_ROOT'] . '/inc/prerequisites.inc.php';
-error_reporting(E_ALL);
-ini_set('display_errors',1);
+error_reporting(0);
+  ini_set('display_errors',0);
+if (getenv('DEV_MODE') == 'y') {
+  error_reporting(E_ALL);
+  ini_set('display_errors',1);
+}
+ 
+
 $data = [];
 function api_log($_data) {
   global $redis;
