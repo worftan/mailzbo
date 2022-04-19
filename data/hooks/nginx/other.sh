@@ -13,6 +13,9 @@ set -e
       {  echo -en 'server {
              include /etc/nginx/conf.d/listen_plain.active;
              include /etc/nginx/conf.d/listen_ssl.active;
+              if ($client_req_scheme = http) {
+                   return 301 https://$host$request_uri;
+             }
             
              ssl_certificate '${sslDir}'/cert.pem;
             ssl_certificate_key '${sslDir}'/key.pem;
